@@ -1,0 +1,3 @@
+g++  -Iinclude -I "C:\msys64\ucrt64\SFML-2.6.2\include"  src/*.cpp main.cpp -L "C:\msys64\ucrt64\SFML-2.6.2\lib"  -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -o proj.exe 
+
+./proj.exe

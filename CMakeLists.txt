@@ -19,7 +19,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 file(GLOB SRC_FILES src/*.cpp)
 
 # Build the executable
-add_executable(SustiEats ${SRC_FILES})
+add_executable(SustiEats ${SRC_FILES} main.cpp)
 
 # Link SFML libraries
 target_link_libraries(

@@ -1,13 +1,1 @@
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
-100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|0
+100|Shaheer Q|shaheer@example.com|0300-0000000|pass|1|60

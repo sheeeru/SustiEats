@@ -9,19 +9,21 @@ using namespace std;
 
 class Order;
 
-class Customer : public User {
+class Customer : public User
+{
 public:
     Address address;
     int loyaltyPoints = 0;
-    unique_ptr<Cart> cart;
-    vector<int> orderIds; 
+    unique_ptr<Cart> cart; // Customer's shopping cart
+    vector<int> orderIds; // IDs of past orders
     Customer();
     Customer(const Customer &other);
-    Customer& operator=(const Customer &other);
+    Customer &operator=(const Customer &other);
     Customer(Customer &&) = default;
-    Customer& operator=(Customer &&) = default;
-    void addToCart(const MenuItem &mi, int qty);
-    shared_ptr<Order> checkout(int restaurantId);
+    Customer &operator=(Customer &&) = default;
+    void addToCart(const MenuItem &mi, int qty, int restId, const string &restName);
+    vector<shared_ptr<Order>> checkout(); // returns list of orders placed
+
     vector<int> viewOrders() const;
     void applyPointsToOrder(int orderId);
     void consumePoints(int pts);

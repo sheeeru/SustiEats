@@ -8,7 +8,6 @@ class Admin : public User
 public:
     Admin() = default;
     void disableUser(int userId);
-    void manageCategories();
 };
 
 #endif

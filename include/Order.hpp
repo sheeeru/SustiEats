@@ -21,10 +21,10 @@ public:
     int restaurantId = -1;
     vector<OrderItem> items;
     double total = 0.0;
-    string status = "Pending";
-
+    string status = "Placed";
     bool place();
+    bool dispatch();
     bool cancel();
 };
 
-#endif 
+#endif

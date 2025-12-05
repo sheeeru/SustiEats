@@ -1,14 +1,15 @@
 #include "Customer.hpp"
 #include "Cart.hpp"
 #include "Order.hpp"
-#include "LoyaltyManager.hpp"
 #include <memory>
 #include <iostream>
+#include <map>
+
 using namespace std;
 
 Customer::Customer()
 {
-    cart = make_unique<Cart>();
+    cart = make_unique<Cart>(); // Initialize an empty cart
 }
 
 Customer::Customer(const Customer &other)
@@ -16,7 +17,7 @@ Customer::Customer(const Customer &other)
 {
     if (other.cart)
     {
-        cart = make_unique<Cart>(*other.cart); // uses Cart's copy ctor (vector copy)
+        cart = make_unique<Cart>(*other.cart);
     }
     else
     {
@@ -46,31 +47,52 @@ Customer &Customer::operator=(const Customer &other)
     return *this;
 }
 
-void Customer::addToCart(const MenuItem &mi, int qty)
+void Customer::addToCart(const MenuItem &mi, int qty, int restId, const string &restName)
 {
     if (!cart)
         cart = make_unique<Cart>();
-    cart->addItem(mi, qty);
+    cart->addItem(mi, qty, restId, restName);
 }
 
-shared_ptr<Order> Customer::checkout(int restaurantId)
+vector<shared_ptr<Order>> Customer::checkout()
 {
+    vector<shared_ptr<Order>> completedOrders;
+
     if (!cart || cart->items.empty())
-        return nullptr;
-    auto o = make_shared<Order>();
-    o->restaurantId = restaurantId;
+        return completedOrders;
+
+    map<int, shared_ptr<Order>> ordersMap;
+
     for (const auto &ci : cart->items)
     {
+        if (ordersMap.find(ci.restaurantId) == ordersMap.end())
+        {
+            auto newOrder = make_shared<Order>();
+            newOrder->customerId = this->id;
+            newOrder->restaurantId = ci.restaurantId;
+            ordersMap[ci.restaurantId] = newOrder;
+        }
+
         OrderItem oi{ci.item, ci.qty, ci.item.price};
-        o->items.push_back(oi);
+        ordersMap[ci.restaurantId]->items.push_back(oi);
     }
-    if (o->place())
+
+    for (auto &pair : ordersMap)
     {
-        LoyaltyManager::addPoints(*this, LoyaltyManager::POINTS_PER_ORDER);
-        cart->clear();
-        return o;
+        auto ord = pair.second;
+        if (ord->place())
+        {
+            completedOrders.push_back(ord);
+        }
     }
-    return nullptr;
+
+    if (!completedOrders.empty())
+    {
+
+        cart->clear(); 
+    }
+
+    return completedOrders;
 }
 
 vector<int> Customer::viewOrders() const { return orderIds; }

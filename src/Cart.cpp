@@ -2,24 +2,25 @@
 #include <algorithm>
 using namespace std;
 
-void Cart::addItem(const MenuItem &mi, int qty)
+void Cart::addItem(const MenuItem &mi, int qty, int restId, const string &restName)
 {
     for (auto &ci : items)
     {
-        if (ci.item.id == mi.id)
+        if (ci.item.id == mi.id && ci.restaurantId == restId)
         {
             ci.qty += qty;
             return;
         }
     }
-    CartItem ci{mi, qty};
+    // Create new item with restaurant info
+    CartItem ci{mi, qty, restId, restName};
     items.push_back(ci);
 }
 
 void Cart::removeItem(int menuId)
 {
     items.erase(remove_if(items.begin(), items.end(), [&](const CartItem &c)
-                               { return c.item.id == menuId; }),
+                          { return c.item.id == menuId; }),
                 items.end());
 }
 
